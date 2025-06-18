@@ -78,3 +78,15 @@ class AccountLoginView(APIView):
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class PublicView(APIView):
+    def get(self, request):
+        return Response({
+            "Message": "This is a Public Endpoint"
+        }, status=status.HTTP_200_OK)
+    
+
+
