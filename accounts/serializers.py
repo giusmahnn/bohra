@@ -39,3 +39,13 @@ class AccountSerializer(serializers.ModelSerializer):
         return user
     
 
+class LoginSerializer(serializers.Serializer):
+    """
+    Serializer for user login.
+
+    Fields:
+        email (EmailField, optional): The user's email address. Not required.
+        password (CharField): The user's password.
+    """
+    email = serializers.EmailField(required=False)
+    password = serializers.CharField()
