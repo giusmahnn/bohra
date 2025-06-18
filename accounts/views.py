@@ -83,6 +83,21 @@ class AccountLoginView(APIView):
 
 
 class PublicView(APIView):
+    """
+    A public API view that allows unrestricted access.
+
+    This view handles GET requests and returns a simple JSON response indicating that the endpoint is public.
+
+    Methods
+    -------
+    get(request):
+        Handles GET requests and returns a message indicating the endpoint is public.
+
+    Permissions
+    -----------
+    AllowAny: No authentication or authorization is required to access this endpoint.
+    """
+    permission_classes = [AllowAny]
     def get(self, request):
         return Response({
             "Message": "This is a Public Endpoint"
@@ -90,3 +105,22 @@ class PublicView(APIView):
     
 
 
+class ProtectedView(APIView):
+    """
+    A view that allows access only to authenticated users.
+
+    GET:
+        Returns a message indicating that the user is authenticated.
+
+    Permissions:
+        - IsAuthenticated: Only authenticated users can access this view.
+
+    Responses:
+        200 OK: Returns a JSON object with a message confirming authentication.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            "Message": "You are seeing this because you are authenticated"
+        }, status=status.HTTP_200_OK)
