@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.serializers import AccountSerializer, LoginSerializer
+from django.template.loader import render_to_string
 from accounts.utils import jwt_tokens
 from accounts.models import Account
+from accounts.tasks import send_welcome_email_task
 from django.contrib.auth.hashers import check_password
 # Create your views here.
 
@@ -31,6 +33,11 @@ class AccountRegistrationView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             tokens = jwt_tokens(user)
+            welcome_template = render_to_string(
+                "accounts/welcome_template.html",
+                {"user": user}
+            )
+            send_welcome_email_task.delay(user.email, "Welcome to our platform", welcome_template)
             return Response({
                 "message": "User created successfully",
                 "user": serializer.data,
