@@ -21,6 +21,17 @@ def jwt_tokens(user):
 
 
 def send_email(user_email, subject, template):
+    """
+    Sends an HTML email to a specified user.
+    Args:
+        user_email (str): The recipient's email address.
+        subject (str): The subject line of the email.
+        template (str): The HTML content to be used as the email body.
+    Returns:
+        str: A message indicating whether the email was sent successfully or if it failed.
+    Raises:
+        Exception: If sending the email fails, the exception is caught and a failure message is returned.
+    """
     subject = subject
     from_email = settings.EMAIL_HOST_USER
     to_email = [user_email]

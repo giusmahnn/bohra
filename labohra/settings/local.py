@@ -10,7 +10,7 @@ load_dotenv()
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Base URL for the application
 # This can be set in the .env file or defaults to localhost
@@ -29,7 +29,7 @@ DATABASES = {
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
@@ -37,3 +37,9 @@ EMAIL_USE_TLS = True
 
 EMAIL_PROVIDER = os.getenv("EMAIL_PROVIDER")
 HOST_USER_EMAIL = os.getenv('HOST_USER_EMAIL')
+
+
+
+# Telegram token
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+TELEGRAM_URL = os.getenv("TELEGRAM_URL")
